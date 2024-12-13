@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.AboutDevActivity">
+
+    <ImageView
+        android:id="@+id/back_arrow"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:contentDescription="@string/back_arrow"
+        app:srcCompat="@drawable/back_arrow_primary"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="40dp"
+        android:layout_marginStart="32dp"/>
+
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:contentDescription="@string/logo"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:srcCompat="@drawable/ic_logo"
+        android:layout_marginTop="100dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp" />
+
+    <LinearLayout
+        android:id="@+id/welcome_container"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginTop="15dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+        <TextView
+            android:id="@+id/about_team"
+            android:layout_width="345dp"
+            android:layout_height="22dp"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="-5sp"
+            android:text="@string/team_c242_ps441"
+            android:textAppearance="@style/semibold_18"
+            android:textColor="@color/neutral_700"/>
+
+        <TextView
+            android:id="@+id/about_text"
+            android:layout_width="345dp"
+            android:layout_height="34dp"
+            android:layout_marginTop="10dp"
+            android:gravity="center_horizontal"
+            android:lineSpacingExtra="-4sp"
+            android:text="@string/team_c242_ps441_from_bangkit_2024_is_dedicated_to_creating_ingrevia_a_smart_app_for_discovering_healthy_recipes_tailored_to_your_body_s_needs"
+            android:textAppearance="@style/regular_14"
+            android:textColor="@color/neutral_500"/>
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/ML"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/machine_learning"
+        android:layout_marginTop="20dp"
+        android:textAppearance="@style/semibold_16"
+        android:textColor="@color/primary_200"
+        app:layout_constraintStart_toStartOf="@+id/welcome_container"
+        app:layout_constraintTop_toBottomOf="@+id/welcome_container" />
+
+    <TextView
+        android:id="@+id/ML1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:layout_marginTop="10dp"
+        android:text="@string/m315b4ky2713_muhammad_alif_alferdiansyah"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_600"
+        app:layout_constraintStart_toStartOf="@+id/ML"
+        app:layout_constraintTop_toBottomOf="@+id/ML" />
+
+    <TextView
+        android:id="@+id/ML2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/m315b4ky2836_muhammad_fathan_mukhlisan"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_600"
+        app:layout_constraintStart_toStartOf="@+id/ML1"
+        app:layout_constraintTop_toBottomOf="@+id/ML1" />
+
+    <TextView
+        android:id="@+id/ML3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/m315b4ky2340_m_farid_saputra"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_600"
+        app:layout_constraintStart_toStartOf="@+id/ML2"
+        app:layout_constraintTop_toBottomOf="@+id/ML2" />
+
+    <TextView
+        android:id="@+id/MD"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:layout_marginTop="20dp"
+        android:text="@string/mobile_development"
+        android:textAppearance="@style/semibold_16"
+        android:textColor="@color/primary_200"
+        app:layout_constraintStart_toStartOf="@+id/ML3"
+        app:layout_constraintTop_toBottomOf="@+id/ML3" />
+
+    <TextView
+        android:id="@+id/MD1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:layout_marginTop="10dp"
+        android:text="@string/a315b4ky2317_m_haikal_ash_shiddiq"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_600"
+        app:layout_constraintStart_toStartOf="@+id/MD"
+        app:layout_constraintTop_toBottomOf="@+id/MD" />
+
+    <TextView
+        android:id="@+id/MD2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/a315b4kx3255_natalia_oyong"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_600"
+        app:layout_constraintStart_toStartOf="@+id/MD1"
+        app:layout_constraintTop_toBottomOf="@+id/MD1" />
+
+    <TextView
+        android:id="@+id/CC"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:layout_marginTop="20dp"
+        android:text="@string/cloud_computing"
+        android:textAppearance="@style/semibold_16"
+        android:textColor="@color/primary_200"
+        app:layout_constraintStart_toStartOf="@+id/MD2"
+        app:layout_constraintTop_toBottomOf="@+id/MD2" />
+
+    <TextView
+        android:id="@+id/CC1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:layout_marginTop="10dp"
+        android:text="@string/c287b4ky1391_faqih_fathurrachman"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_600"
+        app:layout_constraintStart_toStartOf="@+id/CC"
+        app:layout_constraintTop_toBottomOf="@+id/CC" />
+
+    <TextView
+        android:id="@+id/CC2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/c315b4ky2565_mohammad_fahrezi"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_600"
+        app:layout_constraintStart_toStartOf="@+id/CC1"
+        app:layout_constraintTop_toBottomOf="@+id/CC1" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

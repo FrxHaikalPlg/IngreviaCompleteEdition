@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.home.HomeFragment"
+    tools:ignore="ExtraText">
+
+    <com.google.android.material.imageview.ShapeableImageView
+        android:id="@+id/profile_image"
+        android:layout_width="64dp"
+        android:layout_height="64dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/ic_launcher_background"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        android:scaleType="centerCrop"
+        app:shapeAppearanceOverlay="@style/CircleImage"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_marginStart="15dp"
+        app:layout_constraintBottom_toBottomOf="@+id/profile_image"
+        app:layout_constraintStart_toEndOf="@+id/profile_image"
+        app:layout_constraintTop_toTopOf="@+id/profile_image">
+
+        <TextView
+            android:id="@+id/home_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="-5sp"
+            android:text="@string/let_s_find_healthy_recipes"
+            android:textAppearance="@style/semibold_18"
+            android:textColor="@color/primary_200" />
+
+        <TextView
+            android:id="@+id/home_title2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:gravity="center_vertical"
+            android:lineSpacingExtra="-5sp"
+            android:text="@string/welcome_back_ingrevian"
+            android:textAppearance="@style/regular_12"
+            android:textColor="@color/neutral_500" />
+    </LinearLayout>
+    
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/search_bar"
+        android:layout_width="match_parent"
+        android:layout_height="56dp"
+        android:layout_marginHorizontal="32dp"
+        android:layout_marginTop="24dp"
+        app:cardCornerRadius="12dp"
+        app:cardElevation="0dp"
+        app:strokeColor="@color/neutral_300"
+        app:strokeWidth="1dp"
+        app:layout_constraintTop_toBottomOf="@id/profile_image">
+
+        <androidx.appcompat.widget.SearchView
+            android:id="@+id/search_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@android:color/transparent"
+            android:iconifiedByDefault="false"
+            android:queryHint="Find delicious recipe!"
+            app:queryBackground="@android:color/transparent"/>
+    </com.google.android.material.card.MaterialCardView>
+
+    <TextView
+        android:id="@+id/ideal_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/explore_your_ideal_calorie_meals"
+        android:textAppearance="@style/medium_18"
+        android:layout_marginTop="20dp"
+        android:textColor="@color/neutral_500"
+        app:layout_constraintStart_toStartOf="@+id/search_bar"
+        app:layout_constraintTop_toBottomOf="@+id/search_bar" />
+
+    <TextView
+        android:id="@+id/ideal_menu_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:layout_marginTop="5dp"
+        android:text="@string/high_protein_foods_for_energy"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_500"
+        app:layout_constraintStart_toStartOf="@+id/ideal_menu"
+        app:layout_constraintTop_toBottomOf="@+id/ideal_menu" />
+
+    <TextView
+        android:id="@+id/see_more_ideal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="72dp"
+        android:layout_marginTop="5dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/see_more"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_500"
+        app:layout_constraintEnd_toEndOf="@+id/search_bar"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/ideal_menu_sub"
+        app:layout_constraintTop_toBottomOf="@+id/ideal_menu" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvidealmenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:layout_marginTop="15dp"
+        app:layout_constraintStart_toStartOf="@+id/ideal_menu_sub"
+        app:layout_constraintTop_toBottomOf="@+id/ideal_menu_sub" />
+
+    <TextView
+        android:id="@+id/popular_menu"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:layout_marginStart="4dp"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/discover_popular_recipes_today"
+        android:textAppearance="@style/medium_18"
+        android:textColor="@color/neutral_500"
+        app:layout_constraintStart_toStartOf="@+id/ideal_menu_sub"
+        app:layout_constraintTop_toBottomOf="@+id/rvidealmenu" />
+
+    <TextView
+        android:id="@+id/popular_menu_sub"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/delicious_recipes_anytime"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_500"
+
+        app:layout_constraintStart_toStartOf="@+id/popular_menu"
+        app:layout_constraintTop_toBottomOf="@+id/popular_menu" />
+
+    <TextView
+        android:id="@+id/see_more_popular"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:lineSpacingExtra="-5sp"
+        android:text="@string/see_more"
+        android:textAppearance="@style/regular_14"
+        android:textColor="@color/neutral_500"
+        app:layout_constraintEnd_toEndOf="@+id/search_bar"
+        app:layout_constraintTop_toBottomOf="@+id/popular_menu" />" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rvpopularmenu"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:scrollbars="horizontal"
+        android:layout_marginTop="15dp"
+        app:layout_constraintTop_toBottomOf="@+id/popular_menu_sub" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,260 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:fillViewport="true"
+    tools:context=".ui.UserInformationActivity">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <ImageView
+            android:id="@+id/back_arrow"
+            android:layout_width="24dp"
+            android:layout_height="24dp"
+            android:contentDescription="@string/back_arrow"
+            app:srcCompat="@drawable/back_arrow_primary"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="32dp"/>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/logo"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:srcCompat="@drawable/ic_logo"
+            android:layout_marginTop="40dp"
+            android:layout_marginStart="32dp"
+            android:layout_marginEnd="32dp" />
+
+        <LinearLayout
+            android:id="@+id/welcome_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_marginTop="15dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+            <TextView
+                android:id="@+id/create_account"
+                android:layout_width="345dp"
+                android:layout_height="22dp"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="-5sp"
+                android:text="@string/set_up_your_profile"
+                android:textAppearance="@style/semibold_18"
+                android:textColor="@color/neutral_700"/>
+
+            <TextView
+                android:id="@+id/welcome_text"
+                android:layout_width="345dp"
+                android:layout_height="34dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center_horizontal"
+                android:lineSpacingExtra="-4sp"
+                android:text="@string/profile_text"
+                android:textAppearance="@style/regular_14"
+                android:textColor="@color/neutral_500"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/gender"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/gender"
+            android:textAppearance="@style/regular_14"
+            android:textColor="@color/neutral_700"
+            app:layout_constraintStart_toStartOf="@+id/weightInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/welcome_container" />
+
+        <RadioGroup
+            android:id="@+id/genderRadioGroup"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp"
+            app:layout_constraintStart_toStartOf="@id/gender"
+            app:layout_constraintEnd_toEndOf="@id/weightInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/gender">
+
+            <RadioButton
+                android:id="@+id/rbMale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/male"
+                android:layout_marginRight="8dp"
+                android:textColor="@color/neutral_700"
+                style="@style/CustomRadioButton"
+                android:textAppearance="@style/regular_14" />
+
+            <RadioButton
+                android:id="@+id/rbFemale"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/female"
+                android:textColor="@color/neutral_700"
+                style="@style/CustomRadioButton"
+                android:textAppearance="@style/regular_14" />
+        </RadioGroup>
+
+        <TextView
+            android:id="@+id/weight"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/weight"
+            android:textAppearance="@style/regular_14"
+            android:textColor="@color/neutral_700"
+            app:layout_constraintStart_toStartOf="@+id/weightInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/genderRadioGroup" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/weightInputLayout"
+            style="@style/TextInputLayout.Default"
+            app:layout_constraintTop_toBottomOf="@id/weight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.frxhaikal_plg.ingrevia.ui.customview.CustomWeightEditText
+                android:id="@+id/ed_weight"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint_weight"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/height"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/height"
+            android:textColor="@color/neutral_700"
+            android:textAppearance="@style/regular_14"
+            app:layout_constraintStart_toStartOf="@+id/heightInputLayout"
+            app:layout_constraintTop_toBottomOf="@id/weightInputLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/heightInputLayout"
+            style="@style/TextInputLayout.Default"
+            app:layout_constraintTop_toBottomOf="@id/height"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.frxhaikal_plg.ingrevia.ui.customview.CustomHeightEditText
+                android:id="@+id/ed_height"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint_height"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/age"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/age"
+            android:textColor="@color/neutral_700"
+            android:textAppearance="@style/regular_14"
+            app:layout_constraintStart_toStartOf="@+id/heightInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/heightInputLayout" />
+
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/ageInputLayout"
+            style="@style/TextInputLayout.Default"
+            app:layout_constraintTop_toBottomOf="@+id/age"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+
+            <com.frxhaikal_plg.ingrevia.ui.customview.CustomAgeEditText
+                android:id="@+id/ed_age"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:hint="@string/hint_age"
+                android:inputType="number" />
+        </com.google.android.material.textfield.TextInputLayout>
+
+        <TextView
+            android:id="@+id/act_freq"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="15dp"
+            android:text="@string/select_your_activity_frequency"
+            android:textColor="@color/neutral_700"
+            android:textAppearance="@style/regular_14"
+            app:layout_constraintStart_toStartOf="@+id/heightInputLayout"
+            app:layout_constraintTop_toBottomOf="@+id/ageInputLayout" />
+
+            <RadioGroup
+                android:id="@+id/radioGroup"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                app:layout_constraintTop_toBottomOf="@+id/act_freq"
+                app:layout_constraintStart_toStartOf="@+id/heightInputLayout"
+                app:layout_constraintEnd_toEndOf="@+id/heightInputLayout">
+
+                <RadioButton
+                    android:id="@+id/radio_basic"
+                    style="@style/CustomRadioButton"
+                    android:text="@string/basic_for_activities_with_minimal_steps" />
+
+                <RadioButton
+                    android:id="@+id/radio_simple"
+                    style="@style/CustomRadioButton"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/simple_for_activities_with_easy_steps_but_slightly_more_than_basic" />
+
+                <RadioButton
+                    android:id="@+id/radio_standard"
+                    style="@style/CustomRadioButton"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/standard_for_activities_with_a_moderate_number_of_steps" />
+
+                <RadioButton
+                    android:id="@+id/radio_advanced"
+                    style="@style/CustomRadioButton"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/advanced_for_activities_that_require_more_steps_and_are_more_complex" />
+
+                <RadioButton
+                    android:id="@+id/radio_comprehensive"
+                    style="@style/CustomRadioButton"
+                    android:layout_marginTop="5dp"
+                    android:text="@string/comprehensive_for_activities_with_the_most_detailed_and_numerous_steps" />
+            </RadioGroup>
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/started_button"
+            style="@style/MainButton.Default"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="32dp"
+            android:text="@string/get_started"
+            android:textAppearance="@style/medium_16"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+        <include
+            android:id="@+id/loading"
+            layout="@layout/layout_loading" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>
