@@ -18,6 +18,7 @@ import com.frxhaikal_plg.ingrevia.ui.home.adapter.IdealMenuAdapter
 import com.frxhaikal_plg.ingrevia.ui.home.adapter.PopularMenuAdapter
 import com.frxhaikal_plg.ingrevia.ui.detailrecipes.RecipesDetailActivity
 import com.frxhaikal_plg.ingrevia.ui.recipes.SeeMoreRecipesActivity
+import com.frxhaikal_plg.ingrevia.ui.recipes.SeeMorePopularRecipesActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -63,6 +64,11 @@ class HomeFragment : Fragment() {
                     }
                 )
             }
+        }
+        
+        binding.seeMorePopular.setOnClickListener {
+            val intent = Intent(requireContext(), SeeMorePopularRecipesActivity::class.java)
+            startActivity(intent)
         }
         
         return binding.root
