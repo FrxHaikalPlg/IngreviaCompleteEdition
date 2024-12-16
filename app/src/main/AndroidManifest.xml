@@ -43,7 +43,8 @@
             android:name=".ui.PopularActivity"
             android:exported="false" />
         <activity
-            android:name=".ui.SearchActivity"
+            android:name=".ui.search.SearchActivity"
+            android:windowSoftInputMode="stateVisible|adjustResize"
             android:exported="false" />
         <activity
             android:name=".ui.detailrecipes.RecipesDetailActivity"

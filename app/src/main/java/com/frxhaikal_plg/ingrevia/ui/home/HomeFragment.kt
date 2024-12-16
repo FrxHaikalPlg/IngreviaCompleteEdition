@@ -5,6 +5,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.SearchView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
@@ -17,8 +18,9 @@ import com.frxhaikal_plg.ingrevia.databinding.FragmentHomeBinding
 import com.frxhaikal_plg.ingrevia.ui.home.adapter.IdealMenuAdapter
 import com.frxhaikal_plg.ingrevia.ui.home.adapter.PopularMenuAdapter
 import com.frxhaikal_plg.ingrevia.ui.detailrecipes.RecipesDetailActivity
-import com.frxhaikal_plg.ingrevia.ui.recipes.SeeMoreRecipesActivity
 import com.frxhaikal_plg.ingrevia.ui.recipes.SeeMorePopularRecipesActivity
+import com.frxhaikal_plg.ingrevia.ui.recipes.SeeMoreRecipesActivity
+import com.frxhaikal_plg.ingrevia.ui.search.SearchActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -68,6 +70,11 @@ class HomeFragment : Fragment() {
         
         binding.seeMorePopular.setOnClickListener {
             val intent = Intent(requireContext(), SeeMorePopularRecipesActivity::class.java)
+            startActivity(intent)
+        }
+        
+        binding.searchBar.setOnClickListener {
+            val intent = Intent(requireContext(), SearchActivity::class.java)
             startActivity(intent)
         }
         
