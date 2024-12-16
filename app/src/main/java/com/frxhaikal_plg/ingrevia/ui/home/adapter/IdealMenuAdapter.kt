@@ -34,11 +34,17 @@ class IdealMenuAdapter(
             stepNumber.text = "${recipe.totalSteps} steps"
             stepIcon.setImageResource(R.drawable.ic_step)
             
-            Glide.with(holder.itemView.context)
-                .load(recipe.imageUrl)
-                .placeholder(R.drawable.ic_place_holder)
-                .error(R.drawable.ic_place_holder)
-                .into(ivItemPhoto)
+            recipe.imageUrl?.let { url ->
+                Glide.with(holder.itemView.context)
+                    .load(url)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .placeholder(R.drawable.ic_place_holder)
+                    .error(R.drawable.ic_place_holder)
+                    .timeout(10000)
+                    .into(ivItemPhoto)
+            } ?: run {
+                ivItemPhoto.setImageResource(R.drawable.ic_place_holder)
+            }
         }
 
         holder.itemView.setOnClickListener {

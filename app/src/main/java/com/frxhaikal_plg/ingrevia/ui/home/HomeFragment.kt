@@ -5,15 +5,13 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.recyclerview.widget.LinearLayoutManager
-import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.frxhaikal_plg.ingrevia.R
 import com.frxhaikal_plg.ingrevia.data.local.UserPreferences
-import com.frxhaikal_plg.ingrevia.data.remote.api.MLApiConfig
 import com.frxhaikal_plg.ingrevia.data.remote.model.RecommendationRequest
 import com.frxhaikal_plg.ingrevia.databinding.FragmentHomeBinding
 import com.frxhaikal_plg.ingrevia.ui.home.adapter.IdealMenuAdapter
@@ -21,15 +19,10 @@ import com.frxhaikal_plg.ingrevia.ui.detailrecipes.RecipesDetailActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
-
 class HomeFragment : Fragment() {
-
     private var _binding: FragmentHomeBinding? = null
-
-    // This property is only valid between onCreateView and
-    // onDestroyView.
     private val binding get() = _binding!!
-
+    private lateinit var viewModel: HomeViewModel
     private lateinit var userPreferences: UserPreferences
     private lateinit var loadingOverlay: View
 
@@ -39,49 +32,72 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
+        viewModel = ViewModelProvider(this)[HomeViewModel::class.java]
         userPreferences = UserPreferences(requireContext())
         
-        // Inflate loading overlay
-        loadingOverlay = inflater.inflate(R.layout.layout_loading, container, false)
-        (binding.root as ViewGroup).addView(loadingOverlay)
+        setupLoadingOverlay(inflater, container)
+        setupRecyclerView()
+        observeViewModel()
+        fetchRecommendations()
         
-        setupIdealMenuRecyclerView()
         return binding.root
     }
 
-    private fun setupIdealMenuRecyclerView() {
+    private fun setupLoadingOverlay(inflater: LayoutInflater, container: ViewGroup?) {
+        loadingOverlay = inflater.inflate(R.layout.layout_loading, container, false)
+        (binding.root as ViewGroup).addView(loadingOverlay)
+        loadingOverlay.visibility = View.GONE
+    }
+
+    private fun setupRecyclerView() {
         binding.rvidealmenu.layoutManager = LinearLayoutManager(
-            context, 
-            LinearLayoutManager.HORIZONTAL, 
+            context,
+            LinearLayoutManager.HORIZONTAL,
             false
         )
-        
-        lifecycleScope.launch {
-            try {
-                showLoading(true, "Fetching recommendations...")
-                val userInfo = getUserInfoForRecommendation()
-                val response = MLApiConfig.getApiService().getRecommendations(userInfo)
-                
-                if (response.isSuccessful) {
-                    response.body()?.recommendedRecipes?.let { recipes ->
-                        val adapter = IdealMenuAdapter(
-                            recipes.filterNotNull()
-                        ) { recipe ->
-                            // Navigate to detail
-                            val intent = Intent(requireContext(), RecipesDetailActivity::class.java).apply {
-                                putExtra(RECIPE_EXTRA, recipe)
-                            }
-                            startActivity(intent)
-                        }
-                        binding.rvidealmenu.adapter = adapter
-                    }
-                }
-            } catch (e: Exception) {
-                Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
-            } finally {
-                showLoading(false)
+    }
+
+    private fun observeViewModel() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.isLoading.collect { isLoading ->
+                showLoading(isLoading)
             }
         }
+
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.recommendations.collect { result ->
+                result?.fold(
+                    onSuccess = { response ->
+                        response.recommendedRecipes?.filterNotNull()?.let { recipes ->
+                            val adapter = IdealMenuAdapter(recipes) { recipe ->
+                                val intent = Intent(requireContext(), RecipesDetailActivity::class.java)
+                                intent.putExtra(RECIPE_EXTRA, recipe)
+                                startActivity(intent)
+                            }
+                            binding.rvidealmenu.adapter = adapter
+                        }
+                    },
+                    onFailure = { e ->
+                        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
+        }
+    }
+
+    private fun fetchRecommendations() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            try {
+                val userInfo = getUserInfoForRecommendation()
+                viewModel.getRecommendations(userInfo)
+            } catch (e: Exception) {
+                Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+            }
+        }
+    }
+
+    private fun showLoading(isLoading: Boolean) {
+        loadingOverlay.visibility = if (isLoading) View.VISIBLE else View.GONE
     }
 
     private suspend fun getUserInfoForRecommendation(): RecommendationRequest {
@@ -98,11 +114,6 @@ class HomeFragment : Fragment() {
             gender = genderInt,
             activityLevel = userPreferences.activityLevel.first().toInt()
         )
-    }
-
-    private fun showLoading(isLoading: Boolean, message: String = "") {
-        loadingOverlay.visibility = if (isLoading) View.VISIBLE else View.GONE
-        loadingOverlay.findViewById<TextView>(R.id.loadingText).text = message
     }
 
     override fun onDestroyView() {
