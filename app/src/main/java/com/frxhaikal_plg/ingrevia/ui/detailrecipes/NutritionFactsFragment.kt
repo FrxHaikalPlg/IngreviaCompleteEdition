@@ -10,13 +10,15 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import com.frxhaikal_plg.ingrevia.R
 import com.frxhaikal_plg.ingrevia.data.remote.model.RecommendedRecipesItem
+import com.frxhaikal_plg.ingrevia.data.remote.model.home.RecipesItem
 import com.google.android.material.progressindicator.CircularProgressIndicator
 import com.frxhaikal_plg.ingrevia.databinding.FragmentNutritionFactsBinding
 
 class NutritionFactsFragment : Fragment() {
     private var _binding: FragmentNutritionFactsBinding? = null
     private val binding get() = _binding!!
-    private var recipe: RecommendedRecipesItem? = null
+    private var recommendedRecipe: RecommendedRecipesItem? = null
+    private var discoverRecipe: RecipesItem? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -24,51 +26,59 @@ class NutritionFactsFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentNutritionFactsBinding.inflate(inflater, container, false)
-        recipe = (activity as? RecipesDetailActivity)?.recipe
+        recommendedRecipe = (activity as? RecipesDetailActivity)?.recipe
+        discoverRecipe = (activity as? RecipesDetailActivity)?.discoverRecipe
         setupNutritionInfo()
         return binding.root
     }
 
     @SuppressLint("SetTextI18n")
     private fun setupNutritionInfo() {
-        recipe?.let { recipe ->
-            val nutritionData = listOf(
-                Pair("Protein", "${recipe.protein}g"),
-                Pair("Fat", "${recipe.fat}g"),
-                Pair("Sodium", "${recipe.sodium}mg"),
-                Pair("Calories", "${recipe.calories} cal")
+        val nutritionData = when {
+            recommendedRecipe != null -> listOf(
+                Pair("Protein", "${recommendedRecipe?.protein}g"),
+                Pair("Fat", "${recommendedRecipe?.fat}g"),
+                Pair("Sodium", "${recommendedRecipe?.sodium}mg"),
+                Pair("Calories", "${recommendedRecipe?.calories} cal")
             )
+            discoverRecipe != null -> listOf(
+                Pair("Protein", "${discoverRecipe?.protein}g"),
+                Pair("Fat", "${discoverRecipe?.fat}g"),
+                Pair("Sodium", "${discoverRecipe?.sodium}mg"),
+                Pair("Calories", "${discoverRecipe?.calories} cal")
+            )
+            else -> emptyList()
+        }
 
-            binding.nutritionContainer.removeAllViews()
+        binding.nutritionContainer.removeAllViews()
 
-            for ((label, value) in nutritionData) {
-                val itemLayout = LinearLayout(requireContext()).apply {
-                    orientation = LinearLayout.HORIZONTAL
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    ).apply {
-                        setMargins(0, 8, 0, 8)
-                    }
+        for ((label, value) in nutritionData) {
+            val itemLayout = LinearLayout(requireContext()).apply {
+                orientation = LinearLayout.HORIZONTAL
+                layoutParams = LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.MATCH_PARENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT
+                ).apply {
+                    setMargins(0, 8, 0, 8)
                 }
-
-                val pointView = View(requireContext()).apply {
-                    layoutParams = LinearLayout.LayoutParams(16.dpToPx(), 16.dpToPx()).apply {
-                        setMargins(0, 0, 16.dpToPx(), 0)
-                    }
-                    setBackgroundColor(resources.getColor(R.color.primary_200, null))
-                }
-
-                val textView = TextView(requireContext()).apply {
-                    text = "$label: $value"
-                    setTextAppearance(R.style.regular_14)
-                    setTextColor(resources.getColor(R.color.neutral_600, null))
-                }
-
-                itemLayout.addView(pointView)
-                itemLayout.addView(textView)
-                binding.nutritionContainer.addView(itemLayout)
             }
+
+            val pointView = View(requireContext()).apply {
+                layoutParams = LinearLayout.LayoutParams(16.dpToPx(), 16.dpToPx()).apply {
+                    setMargins(0, 0, 16.dpToPx(), 0)
+                }
+                setBackgroundColor(resources.getColor(R.color.primary_200, null))
+            }
+
+            val textView = TextView(requireContext()).apply {
+                text = "$label: $value"
+                setTextAppearance(R.style.regular_14)
+                setTextColor(resources.getColor(R.color.neutral_600, null))
+            }
+
+            itemLayout.addView(pointView)
+            itemLayout.addView(textView)
+            binding.nutritionContainer.addView(itemLayout)
         }
     }
 

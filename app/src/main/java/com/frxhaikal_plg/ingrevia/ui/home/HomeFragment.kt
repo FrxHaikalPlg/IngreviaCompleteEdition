@@ -15,6 +15,7 @@ import com.frxhaikal_plg.ingrevia.data.local.UserPreferences
 import com.frxhaikal_plg.ingrevia.data.remote.model.RecommendationRequest
 import com.frxhaikal_plg.ingrevia.databinding.FragmentHomeBinding
 import com.frxhaikal_plg.ingrevia.ui.home.adapter.IdealMenuAdapter
+import com.frxhaikal_plg.ingrevia.ui.home.adapter.PopularMenuAdapter
 import com.frxhaikal_plg.ingrevia.ui.detailrecipes.RecipesDetailActivity
 import com.frxhaikal_plg.ingrevia.ui.recipes.SeeMoreRecipesActivity
 import kotlinx.coroutines.flow.first
@@ -38,8 +39,11 @@ class HomeFragment : Fragment() {
         
         setupLoadingOverlay(inflater, container)
         setupRecyclerView()
+        setupPopularRecyclerView()
         observeViewModel()
+        observePopularRecipes()
         fetchRecommendations()
+        viewModel.getPopularRecipes()
         
         binding.seeMoreIdeal.setOnClickListener {
             viewLifecycleOwner.lifecycleScope.launch {
@@ -78,6 +82,14 @@ class HomeFragment : Fragment() {
         )
     }
 
+    private fun setupPopularRecyclerView() {
+        binding.rvpopularmenu.layoutManager = LinearLayoutManager(
+            context,
+            LinearLayoutManager.HORIZONTAL,
+            false
+        )
+    }
+
     private fun observeViewModel() {
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.isLoading.collect { isLoading ->
@@ -96,6 +108,28 @@ class HomeFragment : Fragment() {
                                 startActivity(intent)
                             }
                             binding.rvidealmenu.adapter = adapter
+                        }
+                    },
+                    onFailure = { e ->
+                        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
+        }
+    }
+
+    private fun observePopularRecipes() {
+        viewLifecycleOwner.lifecycleScope.launch {
+            viewModel.popularRecipes.collect { result ->
+                result?.fold(
+                    onSuccess = { response ->
+                        response.data?.recipes?.filterNotNull()?.let { recipes ->
+                            val adapter = PopularMenuAdapter(recipes) { recipe ->
+                                val intent = Intent(requireContext(), RecipesDetailActivity::class.java)
+                                intent.putExtra(DISCOVER_RECIPE_EXTRA, recipe)
+                                startActivity(intent)
+                            }
+                            binding.rvpopularmenu.adapter = adapter
                         }
                     },
                     onFailure = { e ->
@@ -144,5 +178,6 @@ class HomeFragment : Fragment() {
 
     companion object {
         const val RECIPE_EXTRA = "recipe_extra"
+        const val DISCOVER_RECIPE_EXTRA = "discover_recipe_extra"
     }
 }

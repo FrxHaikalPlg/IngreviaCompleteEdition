@@ -5,9 +5,12 @@ import com.frxhaikal_plg.ingrevia.data.remote.model.auth.LoginResponse
 import com.frxhaikal_plg.ingrevia.data.remote.model.auth.ForgotPasswordResponse
 import com.frxhaikal_plg.ingrevia.data.remote.model.auth.RegisterRequest
 import com.frxhaikal_plg.ingrevia.data.remote.model.auth.RegisterResponse
+import com.frxhaikal_plg.ingrevia.data.remote.model.home.DiscoverResponse
 import retrofit2.Response
 import retrofit2.http.Body
 import retrofit2.http.POST
+import retrofit2.http.GET
+import retrofit2.http.Query
 
 interface ApiService {
     @POST("auth/login/email")
@@ -18,4 +21,10 @@ interface ApiService {
 
     @POST("auth/register")
     suspend fun register(@Body registerRequest: RegisterRequest): Response<RegisterResponse>
+
+    @GET("home/discover")
+    suspend fun getDiscoverRecipes(
+        @Query("page") page: Int = 1,
+        @Query("limit") limit: Int = 50
+    ): Response<DiscoverResponse>
 } 

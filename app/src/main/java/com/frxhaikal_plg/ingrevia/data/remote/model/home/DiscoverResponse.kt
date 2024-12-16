@@ -1,6 +1,8 @@
 package com.frxhaikal_plg.ingrevia.data.remote.model.home
 
 import com.google.gson.annotations.SerializedName
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 
 data class DiscoverResponse(
 
@@ -29,6 +31,7 @@ data class Pagination(
 	val page: Int? = null
 )
 
+@Parcelize
 data class RecipesItem(
 
 	@field:SerializedName("date")
@@ -75,7 +78,7 @@ data class RecipesItem(
 
 	@field:SerializedName("desc")
 	val desc: String? = null
-)
+) : Parcelable
 
 data class Data(
 
