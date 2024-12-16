@@ -12,6 +12,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.lifecycleScope
 import com.frxhaikal_plg.ingrevia.R
 import com.frxhaikal_plg.ingrevia.data.local.UserPreferences
+import com.frxhaikal_plg.ingrevia.ui.AboutDevActivity
 import com.frxhaikal_plg.ingrevia.ui.login.LoginActivity
 import com.google.android.material.imageview.ShapeableImageView
 import kotlinx.coroutines.launch
@@ -63,9 +64,19 @@ class ProfileFragment : Fragment(R.layout.fragment_profile) {
             logOut()
         }
 
+        val aboutDevButton: View = view.findViewById(R.id.about_developer)
+        aboutDevButton.setOnClickListener {
+            aboutDev()
+        }
+
         profileImage.setOnClickListener {
             checkPermissions()
         }
+    }
+
+    private fun aboutDev() {
+        val intent = Intent(requireContext(), AboutDevActivity::class.java)
+        startActivity(intent)
     }
 
     private fun logOut() {

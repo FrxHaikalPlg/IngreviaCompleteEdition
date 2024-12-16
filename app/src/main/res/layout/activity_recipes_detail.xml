@@ -74,9 +74,11 @@
 
     <TextView
         android:id="@+id/profile_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="25dp"
+        android:layout_marginEnd="32dp"
+        android:layout_marginStart="32dp"
         android:text="@string/recipes_title"
         android:textAppearance="@style/semibold_20"
         android:textColor="@color/neutral_600"
@@ -85,13 +87,13 @@
 
     <LinearLayout
         android:id="@+id/steps_and_calories_container"
-        android:layout_width="0dp"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginEnd="32dp"
         android:gravity="center_vertical"
         android:orientation="horizontal"
-        app:layout_constraintEnd_toEndOf="@+id/iv_item_photo"
-        app:layout_constraintStart_toStartOf="@+id/profile_title"
         app:layout_constraintTop_toBottomOf="@+id/profile_title">
 
         <androidx.constraintlayout.widget.ConstraintLayout

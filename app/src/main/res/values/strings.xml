@@ -134,4 +134,8 @@
     <string name="continue_text">Continue</string>
     <string name="minimum_age_error">Minimum age is 13 years</string>
     <string name="maximum_age_error">Maximum age is 100 years</string>
+    <string name="protein_format">Protein: %1$d g</string>
+    <string name="fat_format">Fat: %1$d g</string>
+    <string name="sodium_format">Sodium: %1$d mg</string>
+    <string name="calories_format">Calories: %1$d cal</string>
 </resources>
