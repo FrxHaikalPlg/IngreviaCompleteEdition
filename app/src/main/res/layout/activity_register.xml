@@ -94,7 +94,7 @@
                 android:id="@+id/ed_register_name"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:hint="@string/email"
+                android:hint="@string/name"
                 android:ems="10"
                 android:inputType="textEmailAddress" />
         </com.google.android.material.textfield.TextInputLayout>
