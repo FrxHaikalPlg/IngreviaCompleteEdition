@@ -10,6 +10,7 @@ import android.widget.TextView
 import com.frxhaikal_plg.ingrevia.R
 import com.frxhaikal_plg.ingrevia.data.remote.model.RecommendedRecipesItem
 import com.frxhaikal_plg.ingrevia.databinding.FragmentStepsBinding
+import android.view.Gravity
 
 class StepsFragment : Fragment() {
     private var _binding: FragmentStepsBinding? = null
@@ -29,37 +30,51 @@ class StepsFragment : Fragment() {
 
     private fun setupSteps() {
         recipe?.directions?.let { directions ->
-            // Split steps into a list if they are a single string separated by periods or other delimiters
-            val steps = directions.split(".").map { it.trim() }
-            binding.stepsContainer.removeAllViews()
+            try {
+                val cleanDirections = directions.trim('[', ']')
+                val steps = cleanDirections.split("', '")
+                    .map { it.trim('\'') }
+                    .filter { it.isNotEmpty() }
+                
+                binding.stepsContainer.removeAllViews()
 
-            steps.forEach { step ->
-                val itemLayout = LinearLayout(requireContext()).apply {
-                    orientation = LinearLayout.HORIZONTAL
-                    layoutParams = LinearLayout.LayoutParams(
-                        LinearLayout.LayoutParams.MATCH_PARENT,
-                        LinearLayout.LayoutParams.WRAP_CONTENT
-                    ).apply {
-                        setMargins(0, 8, 0, 8)
+                steps.forEachIndexed { index, step ->
+                    val itemLayout = LinearLayout(requireContext()).apply {
+                        orientation = LinearLayout.HORIZONTAL
+                        layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        ).apply {
+                            setMargins(0, 8, 0, 8)
+                        }
                     }
-                }
 
-                val pointView = View(requireContext()).apply {
-                    setBackgroundColor(resources.getColor(R.color.primary_200, null)) // Warna kotak
-                    layoutParams = LinearLayout.LayoutParams(12.dpToPx(), 12.dpToPx()).apply {
-                        setMargins(0, 0, 16.dpToPx(), 0) // Jarak antara kotak dan teks langkah
+                    val pointView = View(requireContext()).apply {
+                        setBackgroundColor(resources.getColor(R.color.primary_200, null))
+                        layoutParams = LinearLayout.LayoutParams(12.dpToPx(), 12.dpToPx()).apply {
+                            setMargins(0, 4.dpToPx(), 16.dpToPx(), 0)
+                            gravity = Gravity.TOP
+                        }
                     }
-                }
 
-                val textView = TextView(requireContext()).apply {
-                    text = step
-                    setTextAppearance(R.style.regular_14)
-                    setTextColor(resources.getColor(R.color.neutral_600, null))
-                }
+                    val textView = TextView(requireContext()).apply {
+                        text = step
+                        setTextAppearance(R.style.regular_14)
+                        setTextColor(resources.getColor(R.color.neutral_600, null))
+                        layoutParams = LinearLayout.LayoutParams(
+                            LinearLayout.LayoutParams.MATCH_PARENT,
+                            LinearLayout.LayoutParams.WRAP_CONTENT
+                        )
+                        textAlignment = View.TEXT_ALIGNMENT_TEXT_START
+                        gravity = Gravity.FILL_HORIZONTAL
+                    }
 
-                itemLayout.addView(pointView)
-                itemLayout.addView(textView)
-                binding.stepsContainer.addView(itemLayout)
+                    itemLayout.addView(pointView)
+                    itemLayout.addView(textView)
+                    binding.stepsContainer.addView(itemLayout)
+                }
+            } catch (e: Exception) {
+                val steps = directions.split(".").map { it.trim() }
             }
         }
     }
