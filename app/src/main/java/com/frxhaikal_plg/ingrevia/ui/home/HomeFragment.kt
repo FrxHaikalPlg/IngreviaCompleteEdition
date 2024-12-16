@@ -16,6 +16,7 @@ import com.frxhaikal_plg.ingrevia.data.remote.model.RecommendationRequest
 import com.frxhaikal_plg.ingrevia.databinding.FragmentHomeBinding
 import com.frxhaikal_plg.ingrevia.ui.home.adapter.IdealMenuAdapter
 import com.frxhaikal_plg.ingrevia.ui.detailrecipes.RecipesDetailActivity
+import com.frxhaikal_plg.ingrevia.ui.recipes.SeeMoreRecipesActivity
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 
@@ -39,6 +40,26 @@ class HomeFragment : Fragment() {
         setupRecyclerView()
         observeViewModel()
         fetchRecommendations()
+        
+        binding.seeMoreIdeal.setOnClickListener {
+            viewLifecycleOwner.lifecycleScope.launch {
+                viewModel.recommendations.value?.fold(
+                    onSuccess = { response ->
+                        response.recommendedRecipes?.filterNotNull()?.let { recipes ->
+                            val intent = Intent(requireContext(), SeeMoreRecipesActivity::class.java)
+                            intent.putParcelableArrayListExtra(
+                                SeeMoreRecipesActivity.EXTRA_RECIPES, 
+                                ArrayList(recipes)
+                            )
+                            startActivity(intent)
+                        }
+                    },
+                    onFailure = { e ->
+                        Toast.makeText(context, "Error: ${e.message}", Toast.LENGTH_SHORT).show()
+                    }
+                )
+            }
+        }
         
         return binding.root
     }
