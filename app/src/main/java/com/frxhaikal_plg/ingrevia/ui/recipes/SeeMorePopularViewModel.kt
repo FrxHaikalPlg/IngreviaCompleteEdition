@@ -16,26 +16,47 @@ class SeeMorePopularViewModel : ViewModel() {
     private val _isLoading = MutableStateFlow(false)
     val isLoading: StateFlow<Boolean> = _isLoading
 
-    private var currentPage = 1
-    private var isLastPage = false
-    private val recipesList = mutableListOf<RecipesItem>()
+    private val _currentPage = MutableStateFlow(1)
+    val currentPage: StateFlow<Int> = _currentPage
 
-    fun getDiscoverRecipes() {
-        if (isLastPage) return
-        
+    private val _totalPages = MutableStateFlow(1)
+    val totalPages: StateFlow<Int> = _totalPages
+
+    init {
         viewModelScope.launch {
             try {
                 _isLoading.value = true
-                val response = ApiConfig.getApiService().getDiscoverRecipes(page = currentPage)
+                
+                // Get total pages first
+                val initialResponse = ApiConfig.getApiService().getDiscoverRecipes(page = 1)
+                if (initialResponse.isSuccessful) {
+                    initialResponse.body()?.let { discoverResponse ->
+                        _recipes.value = Result.success(discoverResponse)
+                        discoverResponse.data?.pagination?.let { pagination ->
+                            _totalPages.value = pagination.totalPages ?: 1
+                        }
+                    }
+                }
+            } catch (e: Exception) {
+                _recipes.value = Result.failure(e)
+            } finally {
+                _isLoading.value = false
+            }
+        }
+    }
+
+    fun getDiscoverRecipes(page: Int = 1) {
+        viewModelScope.launch {
+            try {
+                _isLoading.value = true
+                val response = ApiConfig.getApiService().getDiscoverRecipes(page = page)
                 
                 if (response.isSuccessful) {
                     response.body()?.let { discoverResponse ->
-                        recipesList.addAll(discoverResponse.data?.recipes?.filterNotNull() ?: emptyList())
                         _recipes.value = Result.success(discoverResponse)
-                        
-                        // Check if this is the last page
                         discoverResponse.data?.pagination?.let { pagination ->
-                            isLastPage = pagination.page == pagination.totalPages
+                            _totalPages.emit(pagination.totalPages ?: 1)
+                            _currentPage.emit(page)
                         }
                     }
                 } else {
@@ -49,8 +70,29 @@ class SeeMorePopularViewModel : ViewModel() {
         }
     }
 
-    fun loadNextPage() {
-        currentPage++
-        getDiscoverRecipes()
+    fun goToFirstPage() {
+        getDiscoverRecipes(1)
+    }
+
+    fun goToLastPage() {
+        getDiscoverRecipes(_totalPages.value)
+    }
+
+    fun goToPage(page: Int) {
+        if (page in 1.._totalPages.value) {
+            getDiscoverRecipes(page)
+        }
+    }
+
+    fun nextPage() {
+        if (_currentPage.value < _totalPages.value) {
+            getDiscoverRecipes(_currentPage.value + 1)
+        }
+    }
+
+    fun prevPage() {
+        if (_currentPage.value > 1) {
+            getDiscoverRecipes(_currentPage.value - 1)
+        }
     }
 } 
