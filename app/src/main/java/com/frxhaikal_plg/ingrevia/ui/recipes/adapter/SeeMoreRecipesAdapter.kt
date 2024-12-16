@@ -10,7 +10,8 @@ import com.frxhaikal_plg.ingrevia.data.remote.model.RecommendedRecipesItem
 import com.frxhaikal_plg.ingrevia.databinding.ItemSquareBinding
 
 class SeeMoreRecipesAdapter(
-    private val recipes: List<RecommendedRecipesItem>
+    private val recipes: List<RecommendedRecipesItem>,
+    private val onItemClick: (RecommendedRecipesItem) -> Unit
 ) : RecyclerView.Adapter<SeeMoreRecipesAdapter.ViewHolder>() {
 
     class ViewHolder(val binding: ItemSquareBinding) : RecyclerView.ViewHolder(binding.root)
@@ -44,6 +45,10 @@ class SeeMoreRecipesAdapter(
             } ?: run {
                 ivItemPhoto.setImageResource(R.drawable.ic_place_holder)
             }
+        }
+
+        holder.itemView.setOnClickListener {
+            onItemClick(recipe)
         }
     }
 
