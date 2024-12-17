@@ -23,7 +23,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:lineSpacingExtra="-5sp"
-        android:text="@string/search"
+        android:text="Popular Recipe"
         android:textAppearance="@style/semibold_18"
         android:textColor="@color/primary_200"
         app:layout_constraintBottom_toBottomOf="@id/back_arrow"
