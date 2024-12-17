@@ -28,4 +28,9 @@ interface ApiService {
 
     @GET("/home/search/title")
     suspend fun searchRecipesByTitle(@Query("q") query: String): Response<TitleSearchResponse>
+
+    @GET("/home/search/ingredients")
+    suspend fun searchRecipesByIngredients(
+        @Query("ingredients") ingredients: String
+    ): Response<TitleSearchResponse>
 } 
