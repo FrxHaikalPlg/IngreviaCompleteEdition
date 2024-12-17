@@ -18,12 +18,12 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
-        android:id="@+id/search"
+        android:id="@+id/title"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:lineSpacingExtra="-5sp"
-        android:text="@string/popular_recipes"
+        android:text="@string/search"
         android:textAppearance="@style/semibold_18"
         android:textColor="@color/primary_200"
         app:layout_constraintBottom_toBottomOf="@id/back_arrow"

@@ -139,5 +139,4 @@
     <string name="sodium_format">Sodium: %1$d mg</string>
     <string name="calories_format">Calories: %1$d cal</string>
     <string name="recommended_recipes">Recommended Recipes</string>
-    <string name="popular_recipes">Popular Recipes</string>
 </resources>
