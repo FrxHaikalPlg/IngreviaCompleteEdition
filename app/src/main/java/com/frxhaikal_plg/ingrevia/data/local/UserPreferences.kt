@@ -103,4 +103,9 @@ class UserPreferences(private val context: Context) {
         .map { preferences ->
             preferences[GENDER_KEY] ?: ""
         }
+
+    val userId: Flow<String> = context.dataStore.data
+        .map { preferences ->
+            preferences[USER_ID_KEY] ?: ""
+        }
 } 
