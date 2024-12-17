@@ -140,4 +140,5 @@
     <string name="calories_format">Calories: %1$d cal</string>
     <string name="recommended_recipes">Recommended Recipes</string>
     <string name="popular_recipe">Popular Recipe</string>
+    <string name="search_ingredients">Search ingredients...</string>
 </resources>
