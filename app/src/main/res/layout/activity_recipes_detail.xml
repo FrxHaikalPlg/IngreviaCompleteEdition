@@ -32,6 +32,27 @@
         app:layout_constraintStart_toEndOf="@id/back_arrow"
         app:layout_constraintTop_toTopOf="@id/back_arrow" />
 
+    <FrameLayout
+        android:id="@+id/frame_favorite"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="12dp"
+        app:layout_constraintTop_toTopOf="@id/iv_item_photo"
+        app:layout_constraintEnd_toEndOf="@id/iv_item_photo"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="25dp"
+        android:elevation="8dp"
+        android:background="@drawable/rounded_background2">
+
+        <ImageView
+            android:id="@+id/imageViewFavorite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:contentDescription="@string/favorite"
+            android:src="@drawable/ic_favorite"
+            app:tint="@color/neutral_100"/>
+    </FrameLayout>
+
     <androidx.cardview.widget.CardView
         android:id="@+id/iv_item_photo"
         android:layout_width="344dp"
@@ -51,26 +72,6 @@
             android:src="@drawable/ic_launcher_background"
             android:contentDescription="@string/recipe_image" />
     </androidx.cardview.widget.CardView>
-
-    <FrameLayout
-        android:id="@+id/frame_favorite"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:padding="12dp"
-        app:layout_constraintTop_toTopOf="@id/iv_item_photo"
-        app:layout_constraintEnd_toEndOf="@id/iv_item_photo"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="25dp"
-        android:background="@drawable/rounded_background2">
-
-        <ImageView
-            android:id="@+id/imageViewFavorite"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:contentDescription="@string/favorite"
-            android:src="@drawable/ic_favorite"
-            app:tint="@color/neutral_100"/>
-    </FrameLayout>
 
     <TextView
         android:id="@+id/profile_title"
